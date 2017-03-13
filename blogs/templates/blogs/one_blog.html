@@ -1,13 +1,13 @@
 {% extends 'core/base.html' %}
 
-{% block title %}{{ blog.name }}{% endblock %}
+{% block title %}{{ object.name }}{% endblock %}
 
 {% block content %}
-    <div>Id блога: {{ blog.id }}</div>
+    <div>Id блога: {{ object.id }}</div>
     <br>
     <div><h3>Посты</h3>
-        {% for post in posts %}
-            <div><a href="{% url 'blogs:one_post' blog_id=blog.id post_id=post.id %}">
+        {% for post in object.posts.all %}
+            <div><a href="{% url 'blogs:one_post' blog_id=object.id pk=post.id %}">
                 <h3>{{ post.name }}</h3>
             </a></div>
             <div>{{ post.text }}</div>

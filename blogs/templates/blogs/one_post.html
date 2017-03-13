@@ -1,15 +1,15 @@
 {% extends 'core/base.html' %}
 
-{% block title %}{{ post.name }}{% endblock %}
+{% block title %}{{ object.name }}{% endblock %}
 
 {% block content %}
-    <div>Id поста: {{ post.id }}</div>
-    <div>{{ post.text }}</div>
+    <div>Id поста: {{ object.id }}</div>
+    <div>{{ object.text }}</div>
     <div><h3>Комментарии</h3>
-        {% for comment in comments %}
+        {% for comment in object.comments.all %}
             <div><h5>{{ comment.author }}</h5>{{ comment.text }}</div>
         {% endfor %}
     </div>
     <br><br>
-    <div><a href="{% url 'blogs:one_blog' blog_id=blog_id %}">Список постов</a></div>
+    <div><a href="{% url 'blogs:one_blog' pk=object.blog.id %}">Список постов</a></div>
 {% endblock %}
