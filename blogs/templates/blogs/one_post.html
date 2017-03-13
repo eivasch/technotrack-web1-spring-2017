@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ post.name }}{% endblock %}
+
+{% block content %}
+    <div>Id поста: {{ post.id }}</div>
+    <div>{{ post.text }}</div>
+    <div><h3>Комментарии</h3>
+        {% for comment in comments %}
+            <div><h5>{{ comment.author }}</h5>{{ comment.text }}</div>
+        {% endfor %}
+    </div>
+    <br><br>
+    <div><a href="{% url 'blogs:one_blog' blog_id=blog_id %}">Список постов</a></div>
+{% endblock %}
