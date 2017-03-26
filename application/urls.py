@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from core.views import MainView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blogs/', include('blogs.urls', namespace='blogs')),
-    url(r'^main/', include('core.urls', namespace='core'))
+    url(r'^main/', include('core.urls', namespace='core')),
+    url(r'^$', MainView.as_view(), name="main"),
 ]

@@ -6,5 +6,5 @@ urlpatterns = [
     url(r'^$', BlogList.as_view(), name="blog_list"),
     url(r'^(?P<blog_id>\d+)/posts/$', PostList.as_view(), name="post_list"),
     url(r'^(?P<pk>\d+)$', BlogDetail.as_view(), name="one_blog"),
-    url(r'^(?P<blog_id>\d+)/posts/(?P<pk>\d+)$', PostDetail.as_view(), name="one_post"),
+    url(r'^posts/(?P<pk>\d+)$', PostDetail.as_view(), name="one_post"),
 ]

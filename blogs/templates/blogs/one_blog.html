@@ -7,7 +7,7 @@
     <br>
     <div><h3>Посты</h3>
         {% for post in object.posts.all %}
-            <div><a href="{% url 'blogs:one_post' blog_id=object.id pk=post.id %}">
+            <div><a href="{% url 'blogs:one_post' pk=post.id %}">
                 <h3>{{ post.name }}</h3>
             </a></div>
             <div>{{ post.text }}</div>
