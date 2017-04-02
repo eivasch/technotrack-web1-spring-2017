@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'core/base.html' %}
+
+{% block title %}Создание поста{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'blogs:post_create' %}">
+    {% csrf_token %}
+    <input hidden value="{{ user.id }}" name="author_id">
+    {{ form.as_p }}
+    <input type="submit" value="Готово">
+</form>
+{%  endblock %}

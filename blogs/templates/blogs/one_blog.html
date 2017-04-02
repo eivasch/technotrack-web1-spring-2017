@@ -12,12 +12,15 @@
 
     <div><h3>Посты</h3>
         {% for post in object.posts.all %}
-            <div><a href="{% url 'blogs:one_post' pk=post.id %}">
-                <h3>{{ post.name }}</h3>
-            </a></div>
+            <div><h3><a href="{% url 'blogs:one_post' pk=post.id %}">
+                {{ post.name }}
+            </a>
+                <a href="{% url 'blogs:post_update' post.id %}">Редактировать</a></h3></div>
             <div>{{ post.text }}</div>
+            <hr>
         {% endfor %}
     </div>
-    <br><br>
+    <br>
+    <br>
     <div><a href="{% url 'blogs:blog_list' %}">Список блогов</a></div>
 {% endblock %}

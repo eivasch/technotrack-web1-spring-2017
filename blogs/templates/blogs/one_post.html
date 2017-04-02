@@ -8,7 +8,17 @@
     <div><h3>Комментарии</h3>
         {% for comment in object.comments.all %}
             <div><h5>{{ comment.author }}</h5>{{ comment.text }}</div>
+            <hr>
         {% endfor %}
+    </div>
+    <div>
+    <form method="post" action="{% url "comments:comment_form" %}">
+        {% csrf_token %}
+    {{ form.as_p }}
+{#    <input hidden value="{{ user.id }}" name="author_id">#}
+    <input hidden value="{{ object.id }}" name="post_id">
+    <input type="submit" value="Готово">
+    </form>
     </div>
     <br><br>
     <div><a href="{% url 'blogs:one_blog' pk=object.blog.id %}">Список постов</a></div>

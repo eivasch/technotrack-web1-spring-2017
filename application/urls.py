@@ -21,6 +21,7 @@ from core.views import MainView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blogs/', include('blogs.urls', namespace='blogs')),
+    url(r'^comments/', include('comments.urls', namespace='comments')),
     url(r'^main/', include('core.urls', namespace='core')),
     url(r'^$', MainView.as_view(), name="main"),
 ]
