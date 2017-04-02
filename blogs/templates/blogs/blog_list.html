@@ -6,9 +6,12 @@
     {% for blog in object_list %}
         <div>
             <div><h3><a href="{% url 'blogs:one_blog' blog.id %}">{{ blog.name }}</a></h3></div>
+            <div><h5><a href="{% url 'blogs:blog_update' blog.id %}">Редактировать</a></h5></div>
             <div>{{ blog.description }}</div>
         </div>
     {% endfor %}
+    <br>
+    <a href="{% url 'blogs:blog_create' %}">Создать новый блог</a>
     <br><br>
     <div><a href="{% url 'core:main' %}">Главная</a></div>
 {% endblock %}

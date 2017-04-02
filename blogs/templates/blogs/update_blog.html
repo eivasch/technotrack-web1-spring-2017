@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Редактирование блога{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'blogs:blog_update' pk=blog.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Готово">
+</form>
+{%  endblock %}

@@ -12,8 +12,9 @@ class Blog(models.Model):
     followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='followed_blogs', null=True)
     creation_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
+    category = models.ManyToManyField('BlogCategory', related_name='blogs', null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -27,5 +28,13 @@ class Post(models.Model):
     creation_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
+        return self.name
+
+
+class BlogCategory(models.Model):
+
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
         return self.name

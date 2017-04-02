@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Создание блога{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'blogs:blog_create' %}">
+    {% csrf_token %}
+    <input hidden value="{{ user.id }}" name="owner_id">
+    {{ form.as_p }}
+    <input type="submit" value="Готово">
+</form>
+{%  endblock %}

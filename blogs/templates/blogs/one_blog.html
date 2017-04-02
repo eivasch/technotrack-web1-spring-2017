@@ -4,7 +4,12 @@
 
 {% block content %}
     <div>Id блога: {{ object.id }}</div>
-    <br>
+    <h5>Категории:
+    {% for category in object.category.all %}
+            {{ category.name }}
+    {% endfor %} </h5>
+    <div><h5><a href="{% url 'blogs:blog_update' object.id %}">Редактировать</a></h5></div>
+
     <div><h3>Посты</h3>
         {% for post in object.posts.all %}
             <div><a href="{% url 'blogs:one_post' pk=post.id %}">
