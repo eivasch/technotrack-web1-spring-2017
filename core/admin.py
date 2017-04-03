@@ -8,9 +8,9 @@ from .models import User
 
 class UserAdmin(BaseUserAdmin):
 
-    fieldsets = BaseUserAdmin.fieldsets + (
-        (u'Дополнительно', {'fields': ('admin_avatar', 'avatar')}),
-    )
+    fieldsets = BaseUserAdmin.fieldsets  # + (
+    #     (u'Дополнительно', {'fields': ('admin_avatar', 'avatar')}),
+    # )
 
     def admin_avatar(self, instance):
         return instance.avatar and u'<img src="{0}" width="100px" />'.format(

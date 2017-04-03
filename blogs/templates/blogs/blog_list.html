@@ -6,7 +6,10 @@
     {% for blog in object_list %}
         <div>
             <div><h3><a href="{% url 'blogs:one_blog' blog.id %}">{{ blog.name }}</a>
-                <a href="{% url 'blogs:blog_update' blog.id %}">Редактировать</a></h3></div>
+                {% if user.is_authenticated and user.id == blog.owner.id %}
+                    <a href="{% url 'blogs:blog_update' blog.id %}">Редактировать</a></h3>
+                {% endif %}
+            </div>
             <div>{{ blog.description }}</div>
             <hr>
         </div>
@@ -16,13 +19,13 @@
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="/blogs?page={{ page_obj.previous_page_number }}">Предыдущая </a>
+                    <a href="{% url 'blogs:blog_list' %}?page={{ page_obj.previous_page_number }}">Предыдущая </a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="/blogs?page={{ page_obj.next_page_number }}">Следующая</a>
+                    <a href="{% url 'blogs:blog_list' %}?page={{ page_obj.next_page_number }}">Следующая</a>
                 {% endif %}
             </span>
         </div>

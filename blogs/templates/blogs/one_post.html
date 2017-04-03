@@ -11,15 +11,14 @@
             <hr>
         {% endfor %}
     </div>
-    <div>
-    <form method="post" action="{% url "comments:comment_form" %}">
+    {% if user.is_authenticated %}
+    <div> <form method="post" action="{% url "comments:comment_form" %}">
         {% csrf_token %}
-    {{ form.as_p }}
-{#    <input hidden value="{{ user.id }}" name="author_id">#}
-    <input hidden value="{{ object.id }}" name="post_id">
-    <input type="submit" value="Готово">
-    </form>
-    </div>
+        {{ form.as_p }}
+        <input hidden value="{{ object.id }}" name="post_id">
+        <input type="submit" value="Готово">
+    </form> </div>
+    {% endif %}
     <br><br>
     <div><a href="{% url 'blogs:one_blog' pk=object.blog.id %}">Список постов</a></div>
 {% endblock %}

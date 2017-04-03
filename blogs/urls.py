@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)$', BlogDetail.as_view(), name="one_blog"),
     url(r'^posts/(?P<pk>\d+)$', PostDetail.as_view(), name="one_post"),
     url(r'^create$', login_required(BlogCreate.as_view()), name='blog_create'),
-    url(r'^(?P<pk>\d+)/update/$', BlogUpdate.as_view(), name="blog_update"),
+    url(r'^(?P<pk>\d+)/update/$', login_required(BlogUpdate.as_view()), name="blog_update"),
     url(r'^posts/create$', login_required(PostCreate.as_view()), name='post_create'),
-    url(r'^posts/(?P<pk>\d+)/update/$', PostUpdate.as_view(), name="post_update"),
+    url(r'^posts/(?P<pk>\d+)/update/$', login_required(PostUpdate.as_view()), name="post_update"),
 ]

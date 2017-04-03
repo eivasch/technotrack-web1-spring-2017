@@ -1,5 +1,5 @@
 from django.views.generic import CreateView
-from django.urls import reverse
+from django.shortcuts import resolve_url
 
 from .forms import CommentForm
 from .models import Comment
@@ -20,4 +20,4 @@ class CommentFormView(CreateView):
         return super(CommentFormView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('blogs:one_post', kwargs={'pk': self.object.post.pk})
+        return resolve_url('blogs:one_post', pk=self.object.post.pk)

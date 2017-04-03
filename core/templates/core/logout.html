@@ -2,4 +2,7 @@
 
 {% block title %}Logout{% endblock %}
 
-Вы успешно разлогинились!
+{% block content %}
+Вы успешно разлогинились! <br> <br>
+    <div><a href="{% url 'core:main' %}">Главная</a></div>
+{% endblock %}

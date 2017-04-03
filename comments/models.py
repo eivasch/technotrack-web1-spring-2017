@@ -8,9 +8,9 @@ from django.conf import settings
 
 class Comment(models.Model):
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='belonged_comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='belonged_comments', verbose_name="Автор")
     post = models.ForeignKey('blogs.Post', related_name='comments')
-    text = models.TextField(max_length=1000)
+    text = models.TextField(max_length=1000, verbose_name="Комментарий")
     users_likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_comments', null=True, blank=True)
     creation_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)

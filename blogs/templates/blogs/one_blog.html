@@ -8,14 +8,18 @@
     {% for category in object.category.all %}
             {{ category.name }}
     {% endfor %} </h5>
+    {% if user.is_authenticated and user.id == object.owner.id%}
     <div><h5><a href="{% url 'blogs:blog_update' object.id %}">Редактировать</a></h5></div>
+    {% endif %}
 
     <div><h3>Посты</h3>
         {% for post in object.posts.all %}
             <div><h3><a href="{% url 'blogs:one_post' pk=post.id %}">
-                {{ post.name }}
-            </a>
-                <a href="{% url 'blogs:post_update' post.id %}">Редактировать</a></h3></div>
+                {{ post.name }} </a>
+                {% if user.is_authenticated and user.id == post.author.id %}
+                    <a href="{% url 'blogs:post_update' post.id %}">Редактировать</a>
+                {% endif %}
+            </h3></div>
             <div>{{ post.text }}</div>
             <hr>
         {% endfor %}
