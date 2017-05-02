@@ -1,14 +1,24 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="{% static "blogs.css" %}">
+{% endblock %}
 
-{% block title %}{{ object.name }}{% endblock %}
+{% block title %}
+    <a href="{% url 'blogs:one_blog' pk=object.blog.id %}" class="prev-page-link">
+        {{ object.blog.name }}</a> >> {{ object.name }}
+{% endblock %}
 
 {% block content %}
-    <div>Id поста: {{ object.id }}</div>
-    <div>{{ object.text }}</div>
-    <div><h3>Комментарии</h3>
+    <p>{{ object.text }}</p>
+    <h3 class="modal-header">Комментарии</h3>
+
+    <div class="list-group container">
         {% for comment in object.comments.all %}
-            <div><h5>{{ comment.author }}</h5>{{ comment.text }}</div>
-            <hr>
+            <div class="list-group-item row">
+                <h4 class="col-md-1">{{ comment.author }}</h4>
+                <p class="col-md-11">{{ comment.text }}</p>
+            </div>
         {% endfor %}
     </div>
     {% if user.is_authenticated %}
@@ -19,6 +29,4 @@
         <input type="submit" value="Готово">
     </form> </div>
     {% endif %}
-    <br><br>
-    <div><a href="{% url 'blogs:one_blog' pk=object.blog.id %}">Список постов</a></div>
 {% endblock %}

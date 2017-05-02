@@ -1,9 +1,10 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.shortcuts import resolve_url
 
+
 from .models import Blog, Post
 from core.models import User
-from .forms import BlogForm, PostForm
+from .forms import BlogForm, PostForm, SearchForm
 from comments.forms import CommentForm
 
 
@@ -14,6 +15,23 @@ class BlogList(ListView):
     template_name = "blogs/blog_list.html"
     model = Blog
     paginate_by = 5
+    search_form = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.search_form = SearchForm(request.GET)
+        return super(BlogList, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogList, self).get_context_data(**kwargs)
+        context['search_form'] = self.search_form
+        return context
+
+    def get_queryset(self):
+        queryset = super(BlogList, self).get_queryset()
+        if self.search_form.is_valid():
+            if self.search_form.cleaned_data['search']:
+                queryset = queryset.filter(name__icontains=self.search_form.cleaned_data['search'])
+        return queryset
 
 
 class BlogDetail(DetailView):
@@ -46,7 +64,7 @@ class BlogUpdate(UpdateView):
         return resolve_url('blogs:one_blog', pk=self.object.pk)
 
     def get_queryset(self):
-        return Blog.objects.filter(author=self.request.user)
+        return Blog.objects.filter(owner=self.request.user)
 
 
 ####################
@@ -75,6 +93,12 @@ class PostCreate(CreateView):
     model = Post
     form_class = PostForm
 
+    def get_form(self, form_class=None):
+        form = super(PostCreate, self).get_form(form_class)
+        queryset = form.fields['blog'].queryset
+        form.fields['blog'].queryset = queryset.filter(owner=self.request.user)
+        return form
+
     def get_success_url(self):
         return resolve_url('blogs:one_blog', pk=self.object.blog.pk)
 
@@ -89,6 +113,12 @@ class PostUpdate(UpdateView):
     template_name = 'blogs/update_post.html'
     model = Post
     form_class = PostForm
+
+    def get_form(self, form_class=None):
+        form = super(PostUpdate, self).get_form(form_class)
+        queryset = form.fields['blog'].queryset
+        form.fields['blog'].queryset = queryset.filter(owner=self.request.user)
+        return form
 
     def get_success_url(self):
         return resolve_url('blogs:one_blog', pk=self.object.blog.pk)

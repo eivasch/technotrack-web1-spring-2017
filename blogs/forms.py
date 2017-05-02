@@ -26,3 +26,7 @@ class PostForm(forms.ModelForm):
             'text',
             'blog',
         )
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(required=False)

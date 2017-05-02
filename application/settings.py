@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'core',
     'blogs',
     'comments',
@@ -125,6 +126,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "core", "templates", "core", "static"),
+    os.path.join(BASE_DIR, "blogs", "templates", "blogs", "static"),
+    os.path.join(BASE_DIR, "bootstrap"),
+]
 
 LOGIN_REDIRECT_URL = "core:main"
 LOGIN_URL = "core:login"

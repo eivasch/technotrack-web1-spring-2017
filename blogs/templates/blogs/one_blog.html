@@ -1,30 +1,36 @@
 {% extends 'core/base.html' %}
 
-{% block title %}{{ object.name }}{% endblock %}
+{% block title %}
+    <div>
+    {{ object.name }}
+    {% if user.is_authenticated and user.id == object.owner.id%}
+    <small>
+        <a href="{% url 'blogs:blog_update' object.id %}" class="align-right">Редактировать</a>
+    </small>
+    {% endif %}
+    </div>
+{% endblock %}
 
 {% block content %}
-    <div>Id блога: {{ object.id }}</div>
-    <h5>Категории:
+    <h4>Категории:
     {% for category in object.category.all %}
             {{ category.name }}
-    {% endfor %} </h5>
-    {% if user.is_authenticated and user.id == object.owner.id%}
-    <div><h5><a href="{% url 'blogs:blog_update' object.id %}">Редактировать</a></h5></div>
-    {% endif %}
-
-    <div><h3>Посты</h3>
+    {% endfor %} </h4>
+    <div class="list-group container">
         {% for post in object.posts.all %}
-            <div><h3><a href="{% url 'blogs:one_post' pk=post.id %}">
-                {{ post.name }} </a>
+        <div class="list-group-item-text">
+            <h3 class="modal-header"><a href="{% url 'blogs:one_post' pk=post.id %}">
+                {{ post.name }}
+            </a>
                 {% if user.is_authenticated and user.id == post.author.id %}
-                    <a href="{% url 'blogs:post_update' post.id %}">Редактировать</a>
+                    <small>
+                    <a href="{% url 'blogs:post_update' post.id %}" class="align-right">
+                        Редактировать
+                    </a></small>
                 {% endif %}
-            </h3></div>
-            <div>{{ post.text }}</div>
-            <hr>
+            </h3>
+            <p>{{ post.text }}</p>
+        </div>
         {% endfor %}
     </div>
-    <br>
-    <br>
-    <div><a href="{% url 'blogs:blog_list' %}">Список блогов</a></div>
 {% endblock %}

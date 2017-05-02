@@ -3,8 +3,16 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-    <div>Всего блогов: {{ blog_count }}</div>
-    <div>Всего постов: {{ post_count }}</div>
-    <div>Всего комментариев: {{ comment_count }}</div>
-    <div><a href="{% url 'blogs:blog_list' %}">Список блогов</a></div>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Всего блогов:</h3> {{ blog_count }}
+        </div>
+        <div class="col-md-3">
+            <h3>Всего постов: </h3>{{ post_count }}</div>
+        <div class="col-md-3">
+            <h3>Всего комментариев:</h3> {{ comment_count }}
+        </div>
+    </div>
+    </div>
 {% endblock %}
